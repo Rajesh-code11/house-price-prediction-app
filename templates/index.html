@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>House Price Prediction</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="header">
+            <h1>🏠 House Price Prediction</h1>
+
+            <p class="subtitle">
+                Machine learning-powered median house value estimation
+            </p>
+        </div>
+
+
+        <form method="POST">
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label for="MedInc">Median Income</label>
+
+                    <input
+                        type="number"
+                        step="any"
+                        name="MedInc"
+                        id="MedInc"
+                        placeholder="Example: 5.0"
+                        required
+                    >
+
+                    <small>
+                        Median income of residents in the area.
+                    </small>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="HouseAge">House Age</label>
+
+                    <input
+                        type="number"
+                        step="any"
+                        name="HouseAge"
+                        id="HouseAge"
+                        placeholder="Example: 20"
+                        required
+                    >
+
+                    <small>
+                        Median age of houses in the area.
+                    </small>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="AveRooms">Average Rooms</label>
+
+                    <input
+                        type="number"
+                        step="any"
+                        name="AveRooms"
+                        id="AveRooms"
+                        placeholder="Example: 6"
+                        required
+                    >
+
+                    <small>
+                        Average number of rooms per household.
+                    </small>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="AveBedrms">Average Bedrooms</label>
+
+                    <input
+                        type="number"
+                        step="any"
+                        name="AveBedrms"
+                        id="AveBedrms"
+                        placeholder="Example: 1"
+                        required
+                    >
+
+                    <small>
+                        Average number of bedrooms per household.
+                    </small>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="Population">Population</label>
+
+                    <input
+                        type="number"
+                        step="any"
+                        name="Population"
+                        id="Population"
+                        placeholder="Example: 1000"
+                        required
+                    >
+
+                    <small>
+                        Population of the local area.
+                    </small>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="AveOccup">Average Occupancy</label>
+
+                    <input
+                        type="number"
+                        step="any"
+                        name="AveOccup"
+                        id="AveOccup"
+                        placeholder="Example: 3"
+                        required
+                    >
+
+                    <small>
+                        Average number of people per household.
+                    </small>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="Latitude">Latitude</label>
+
+                    <input
+                        type="number"
+                        step="any"
+                        name="Latitude"
+                        id="Latitude"
+                        placeholder="Example: 34.0"
+                        required
+                    >
+
+                    <small>
+                        Geographic latitude of the area.
+                    </small>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="Longitude">Longitude</label>
+
+                    <input
+                        type="number"
+                        step="any"
+                        name="Longitude"
+                        id="Longitude"
+                        placeholder="Example: -118.0"
+                        required
+                    >
+
+                    <small>
+                        Geographic longitude of the area.
+                    </small>
+                </div>
+
+            </div>
+
+
+            <button type="submit">
+                Predict House Value
+            </button>
+
+        </form>
+
+
+        {% if prediction is not none %}
+
+            <div class="result">
+
+                <h2>Predicted House Value</h2>
+
+                <p class="price">
+                    ${{ "{:,.0f}".format(prediction * 100000) }}
+                </p>
+
+                <p>
+                    Estimated median house value
+                </p>
+
+            </div>
+
+        {% endif %}
+
+
+        {% if error %}
+
+            <div class="error">
+
+                <strong>⚠️ Invalid Input</strong>
+
+                <p>{{ error }}</p>
+
+            </div>
+
+        {% endif %}
+
+        <div class="about">
+
+            <h2>About This Model</h2>
+
+            <p>
+                This application uses a tuned Random Forest regression model
+                trained on the California Housing dataset.
+            </p>
+
+            <p>
+                The final model achieved an R² score of approximately
+                <strong>0.81</strong> on the test dataset.
+            </p>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
