@@ -1,13 +1,17 @@
 from flask import Flask, render_template, request
 import joblib
 import numpy as np
-from pathlib import Path
+from huggingface_hub import hf_hub_download
 
 
 app = Flask(__name__)
 
 
-model_path = Path(__file__).parent / "model" / "house_price_model.pkl"
+model_path = hf_hub_download(
+    repo_id="RajeshCode11/house-price-random-forest",
+    filename="house_price_model.pkl"
+)
+
 model = joblib.load(model_path)
 
 
